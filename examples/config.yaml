@@ -1,0 +1,21 @@
+data:
+  ticker: SPY
+  start: "2015-01-01"
+  end: "2025-01-01"
+
+strategy:
+  name: moving_average_cross
+  parameters:
+    fast: 20
+    slow: 100
+
+backtest:
+  capital: 100000
+  commission: 0.001
+  slippage: 0.0005
+  position_size: 1.0
+
+output:
+  metrics: outputs/metrics.json
+  equity_plot: outputs/equity.png
+

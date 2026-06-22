@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#090b0a" />
+    <meta
+      name="description"
+      content="Argmax is open-source, bias-aware infrastructure for quantitative strategy research and backtesting."
+    />
+    <meta property="og:title" content="Argmax | Quantitative research infrastructure" />
+    <meta
+      property="og:description"
+      content="Test systematic strategies with explicit assumptions, next-bar execution, and inspectable results."
+    />
+    <meta property="og:image" content="/assets/argmax-paths.jpg" />
+    <title>Argmax | Quantitative research infrastructure</title>
+    <link rel="preload" href="/assets/argmax-paths.jpg" as="image" fetchpriority="high" />
+    <link rel="stylesheet" href="/landing.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="nav-shell">
+      <nav aria-label="Primary navigation">
+        <a class="wordmark" href="/" aria-label="Argmax home">
+          <svg viewBox="0 0 30 30" aria-hidden="true">
+            <path d="M5 23 12 7h5l8 16h-5l-1.7-4H10.6L9 23H5Zm7-8h4.7L14.3 9.4 12 15Z" />
+          </svg>
+          <span>argmax</span>
+        </a>
+        <div class="nav-links">
+          <a href="#platform">Platform</a>
+          <a href="#methodology">Methodology</a>
+          <a href="#open-source">Open source</a>
+        </div>
+        <a class="nav-cta" href="/app.html">Open console <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero-section" aria-labelledby="hero-title">
+        <img
+          class="hero-image"
+          src="/assets/argmax-paths.jpg"
+          alt="Layered market paths converging on a highlighted research trajectory"
+          width="1792"
+          height="896"
+          fetchpriority="high"
+        />
+        <div class="hero-wash" aria-hidden="true"></div>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="hero-kicker">Open-source quantitative research</p>
+            <h1 id="hero-title">
+              Find the strategy.<br />
+              <span>Know the <i class="inline-image" aria-hidden="true"></i> risk.</span>
+            </h1>
+            <p>Bias-aware backtesting with explicit fills, transaction costs, and inspectable evidence.</p>
+            <div class="hero-actions">
+              <a class="primary-button" href="/app.html">Start a backtest <span aria-hidden="true">→</span></a>
+              <button class="install-command" type="button" data-copy="pip install -e .">
+                <code>pip install -e .</code><span>Copy</span>
+              </button>
+            </div>
+          </div>
+          <div class="execution-card" aria-label="Execution model">
+            <p>Execution model</p>
+            <div><span>Observe</span><strong>Close<sub>t</sub></strong></div>
+            <div class="execution-shift"><span></span><small>one-bar shift</small></div>
+            <div><span>Execute</span><strong>Open<sub>t+1</sub></strong></div>
+            <footer>No same-bar clairvoyance. No hidden fills.</footer>
+          </div>
+        </div>
+      </section>
+
+      <section id="platform" class="terminal-section" aria-labelledby="platform-title">
+        <div class="section-intro">
+          <p class="overline">Research surface</p>
+          <h2 id="platform-title">From hypothesis to evidence in one environment.</h2>
+          <p>Change the model, inspect the path, and measure what survives costs.</p>
+        </div>
+
+        <div class="research-terminal">
+          <div class="terminal-bar">
+            <div class="terminal-title"><span class="live-dot"></span> SPY / DAILY</div>
+            <div class="terminal-period">JAN 2018 - DEC 2025 <span>2,012 SESSIONS</span></div>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-sidebar">
+              <div class="control-group">
+                <label>Strategy</label>
+                <button class="select-face" type="button">MA Crossover <span>⌄</span></button>
+              </div>
+              <div class="parameter-row"><span>Fast window</span><strong>20</strong></div>
+              <div class="parameter-row"><span>Slow window</span><strong>100</strong></div>
+              <div class="parameter-row"><span>Commission</span><strong>10 bps</strong></div>
+              <div class="parameter-row"><span>Slippage</span><strong>5 bps</strong></div>
+              <div class="stat-stack">
+                <span>Ending equity</span><strong id="hero-equity">$184,720</strong><small id="hero-change">+84.72%</small>
+              </div>
+              <a href="/app.html">Reproduce this run <span aria-hidden="true">→</span></a>
+            </div>
+
+            <div class="terminal-chart-panel">
+              <div class="chart-toolbar">
+                <div class="series-toggle" role="tablist" aria-label="Chart series">
+                  <button class="active" data-series="strategy" type="button"><span></span>Strategy</button>
+                  <button data-series="benchmark" type="button"><span></span>Buy &amp; hold</button>
+                  <button data-series="both" type="button">Compare</button>
+                </div>
+                <div class="chart-readout"><span id="chart-date">DEC 31, 2025</span><b id="chart-readout">$184,720</b></div>
+              </div>
+              <div id="landing-chart" class="landing-chart" role="img" aria-label="Interactive sample strategy equity chart"></div>
+              <div class="terminal-metrics">
+                <div><span>Annualized return</span><strong>8.42%</strong></div>
+                <div><span>Sharpe ratio</span><strong>1.14</strong></div>
+                <div><span>Max drawdown</span><strong class="risk">-14.82%</strong></div>
+                <div><span>Win rate</span><strong>56.3%</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="capability-section" aria-labelledby="capability-title">
+        <div class="chapter-heading">
+          <h2 id="capability-title">The assumptions stay visible.</h2>
+          <p>Every result keeps the model, market path, execution rules, and realized ledger close at hand.</p>
+        </div>
+        <div class="capability-grid">
+          <article class="capability capability-wide capability-image">
+            <div>
+              <span>Execution</span>
+              <h3>Signals move forward one bar.</h3>
+              <p>A close observed today can only become a fill at the next open.</p>
+            </div>
+          </article>
+          <article class="capability capability-tall">
+            <span>Accounting</span>
+            <h3>Cash is part of the model.</h3>
+            <p>Integer shares, partial allocation, commission, and adverse slippage are applied directly to the ledger.</p>
+            <div class="accounting-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          </article>
+          <article class="capability capability-compact">
+            <span>Analytics</span>
+            <h3>Risk has more than one shape.</h3>
+            <div class="metric-pair"><b>Sharpe</b><b>Sortino</b><b>Drawdown</b><b>Profit factor</b></div>
+          </article>
+          <article class="capability capability-code">
+            <span>Extension</span>
+            <h3>One typed strategy interface.</h3>
+            <code>generate_signals(data) -&gt; Series</code>
+            <p>Build with vectorized pandas indicators or subclass the core strategy contract.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="methodology" class="method-section" aria-labelledby="method-title">
+        <div class="method-pin">
+          <p class="overline">Methodology</p>
+          <h2 id="method-title">A backtest you can interrogate.</h2>
+          <p>Each layer exposes what it received, changed, and returned.</p>
+        </div>
+        <div class="method-accordion">
+          <article class="method-item is-active" tabindex="0">
+            <div class="method-index">Acquire</div>
+            <div class="method-detail">
+              <h3>Clean the market path.</h3>
+              <p>Retrieve adjusted OHLCV with reproducible local caching and multi-ticker support.</p>
+              <code>get_data("SPY", start, end)</code>
+            </div>
+          </article>
+          <article class="method-item" tabindex="0">
+            <div class="method-index">Express</div>
+            <div class="method-detail">
+              <h3>Turn the hypothesis into signals.</h3>
+              <p>Compose vectorized indicators or implement one small typed interface.</p>
+              <code>Strategy.generate_signals()</code>
+            </div>
+          </article>
+          <article class="method-item" tabindex="0">
+            <div class="method-index">Simulate</div>
+            <div class="method-detail">
+              <h3>Walk capital forward.</h3>
+              <p>Apply next-open fills, integer shares, commissions, slippage, and cash accounting.</p>
+              <code>Backtest(...).run()</code>
+            </div>
+          </article>
+          <article class="method-item" tabindex="0">
+            <div class="method-index">Interrogate</div>
+            <div class="method-detail">
+              <h3>Read the full result.</h3>
+              <p>Trace completed trades and compare return, risk, drawdown, and path quality.</p>
+              <code>result.summary()</code>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="manifesto-section" aria-label="Research principle">
+        <p class="scrub-copy">
+          A result is only useful when you can explain where the signal came from, when the trade executed, what the position cost, and which risks remained hidden in the average.
+        </p>
+      </section>
+
+      <section class="evidence-section" aria-labelledby="evidence-title">
+        <div class="evidence-heading">
+          <h2 id="evidence-title">Inspect the result from every angle.</h2>
+          <div class="carousel-controls">
+            <button id="evidence-prev" type="button" aria-label="Previous result view">←</button>
+            <button id="evidence-next" type="button" aria-label="Next result view">→</button>
+          </div>
+        </div>
+        <div class="evidence-viewport">
+          <div id="evidence-track" class="evidence-track">
+            <article><span>Account history</span><h3>Follow cash, exposure, and equity through every session.</h3><code>result.account_history</code></article>
+            <article><span>Trade ledger</span><h3>Trace entry, exit, shares, cost, and realized P&amp;L.</h3><code>result.trades</code></article>
+            <article><span>Signal frame</span><h3>Compare the raw signal with the shifted execution series.</h3><code>result.signals</code></article>
+            <article><span>Risk summary</span><h3>Read return in context with drawdown and downside variation.</h3><code>result.summary()</code></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="open-source" class="source-section" aria-labelledby="source-title">
+        <div class="source-copy">
+          <h2 id="source-title">Own the model. Read every assumption.</h2>
+          <p>Argmax is a typed Python package, command-line tool, and deployable browser application.</p>
+          <a class="plain-link" href="#quickstart">Read the quickstart</a>
+        </div>
+        <div id="quickstart" class="code-window">
+          <div class="code-header"><span>strategy.py</span><button id="copy-code" type="button">Copy</button></div>
+          <pre><code><span class="pink">from</span> argmax.backtest <span class="pink">import</span> Backtest
+<span class="pink">from</span> argmax.data <span class="pink">import</span> get_data
+<span class="pink">from</span> argmax.strategies <span class="pink">import</span> MovingAverageCross
+
+data = get_data(<span class="green">"SPY"</span>, start=<span class="green">"2018-01-01"</span>)
+strategy = MovingAverageCross(fast=<span class="blue">20</span>, slow=<span class="blue">100</span>)
+
+result = Backtest(
+    strategy=strategy,
+    data=data,
+    capital=<span class="blue">100_000</span>,
+    commission=<span class="blue">0.001</span>,
+    slippage=<span class="blue">0.0005</span>,
+).run()
+
+<span class="pink">print</span>(result.summary())</code></pre>
+        </div>
+      </section>
+
+      <section class="closing-section" aria-labelledby="closing-title">
+        <h2 id="closing-title">Put the hypothesis<br />under pressure.</h2>
+        <p>Run the research console against real market history.</p>
+        <a class="primary-button" href="/app.html">Start a backtest <span aria-hidden="true">→</span></a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="wordmark" href="/">argmax</a>
+      <p>Open-source quantitative research infrastructure.<br />Past performance does not predict future results.</p>
+      <div><a href="/app.html">Console</a><a href="#methodology">Methodology</a><a href="#quickstart">Quickstart</a></div>
+    </footer>
+
+    <div class="grain" aria-hidden="true"></div>
+    <script src="/vendor/gsap.min.js" defer></script>
+    <script src="/vendor/ScrollTrigger.min.js" defer></script>
+    <script src="/landing.js" defer></script>
+  </body>
+</html>

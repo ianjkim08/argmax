@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#090b0a" />
+    <meta
+      name="description"
+      content="Run bias-aware quantitative strategy backtests in the Argmax research console."
+    />
+    <title>Argmax | Strategy Research Console</title>
+    <link rel="preload" href="/assets/argmax-paths.jpg" as="image" fetchpriority="high" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#workspace">Skip to research console</a>
+
+    <header class="nav-shell">
+      <nav aria-label="Console navigation">
+        <a class="wordmark" href="/" aria-label="Argmax home">
+          <svg viewBox="0 0 30 30" aria-hidden="true">
+            <path d="M5 23 12 7h5l8 16h-5l-1.7-4H10.6L9 23H5Zm7-8h4.7L14.3 9.4 12 15Z" />
+          </svg>
+          <span>argmax</span>
+        </a>
+        <div class="nav-context" aria-label="Current page">
+          <span>Research console</span>
+        </div>
+        <a class="nav-link" href="/">Overview <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="console-hero" aria-labelledby="console-title">
+        <img
+          class="console-hero-image"
+          src="/assets/argmax-paths.jpg"
+          alt="Layered market paths converging on a highlighted research trajectory"
+          width="1792"
+          height="896"
+          fetchpriority="high"
+        />
+        <div class="console-hero-wash" aria-hidden="true"></div>
+        <div class="console-hero-copy">
+          <p class="eyebrow">Bias-aware strategy research</p>
+          <h1 id="console-title">Test the thesis.<br />&#32;<span>Measure the trade-offs.</span></h1>
+          <p>Historical prices, explicit execution rules, and inspectable risk metrics in one focused console.</p>
+          <div class="hero-actions">
+            <a class="primary-link" href="#workspace">Configure research <span aria-hidden="true">↓</span></a>
+            <a class="secondary-link" href="/">Read the methodology</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="strategy-tape" aria-label="Supported strategy models">
+        <div class="strategy-tape-track">
+          <span>Moving Average Crossover</span><i></i><span>RSI Mean Reversion</span><i></i>
+          <span>Bollinger Reversion</span><i></i><span>Price Momentum</span><i></i>
+          <span aria-hidden="true">Moving Average Crossover</span><i aria-hidden="true"></i>
+          <span aria-hidden="true">RSI Mean Reversion</span><i aria-hidden="true"></i>
+          <span aria-hidden="true">Bollinger Reversion</span><i aria-hidden="true"></i>
+          <span aria-hidden="true">Price Momentum</span><i aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <section id="workspace" class="workspace-section" aria-labelledby="workspace-title">
+        <div class="workspace-intro">
+          <p class="eyebrow">Research workspace</p>
+          <h2 id="workspace-title">Make every assumption explicit.</h2>
+          <p>Set the market, model, and portfolio constraints. Argmax handles the accounting path.</p>
+        </div>
+
+        <div class="workspace">
+          <aside class="control-panel" aria-labelledby="configure-title">
+            <div class="panel-heading">
+              <div>
+                <h2 id="configure-title">Configure</h2>
+                <p>Define the experiment before reading the result.</p>
+              </div>
+              <button id="reset-button" class="text-button" type="button">Reset</button>
+            </div>
+
+            <form id="backtest-form">
+              <fieldset>
+                <legend>Market</legend>
+                <label class="field field-wide">
+                  <span>Ticker</span>
+                  <input id="ticker" name="ticker" value="SPY" maxlength="20" autocomplete="off" required />
+                </label>
+                <div class="field-row">
+                  <label class="field">
+                    <span>Start date</span>
+                    <input id="start" name="start" type="date" value="2018-01-01" required />
+                  </label>
+                  <label class="field">
+                    <span>End date</span>
+                    <input id="end" name="end" type="date" required />
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Strategy</legend>
+                <label class="field field-wide">
+                  <span>Model</span>
+                  <select id="strategy" name="strategy">
+                    <option value="moving_average_cross">Moving Average Crossover</option>
+                    <option value="rsi_mean_reversion">RSI Mean Reversion</option>
+                    <option value="bollinger_reversion">Bollinger Reversion</option>
+                    <option value="momentum">Price Momentum</option>
+                  </select>
+                </label>
+                <div id="strategy-parameters" class="field-row"></div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Portfolio</legend>
+                <div class="field-row">
+                  <label class="field">
+                    <span>Starting capital</span>
+                    <div class="input-prefix"><b>$</b><input id="capital" type="number" value="100000" min="1" /></div>
+                  </label>
+                  <label class="field">
+                    <span>Position size</span>
+                    <div class="input-suffix"><input id="position-size" type="number" value="100" min="1" max="100" /><b>%</b></div>
+                  </label>
+                </div>
+                <div class="field-row">
+                  <label class="field">
+                    <span>Commission</span>
+                    <div class="input-suffix"><input id="commission" type="number" value="0.10" min="0" step="0.01" /><b>%</b></div>
+                  </label>
+                  <label class="field">
+                    <span>Slippage</span>
+                    <div class="input-suffix"><input id="slippage" type="number" value="0.05" min="0" step="0.01" /><b>%</b></div>
+                  </label>
+                </div>
+              </fieldset>
+
+              <button class="run-button" type="submit">
+                <span id="run-label">Run backtest</span>
+                <span aria-hidden="true">→</span>
+              </button>
+              <p class="form-note">Market data supplied by Yahoo Finance. Research use only.</p>
+            </form>
+          </aside>
+
+          <section class="results-panel" aria-live="polite" aria-label="Backtest output">
+            <div id="empty-state" class="empty-state">
+              <div class="empty-image-wrap">
+                <img
+                  src="/assets/argmax-paths.jpg"
+                  alt="Market paths ready for a strategy simulation"
+                  width="1792"
+                  height="896"
+                />
+              </div>
+              <h2>Your evidence will appear here.</h2>
+              <p>Choose a market, tune the strategy, and run the simulation.</p>
+            </div>
+
+            <div id="loading-state" class="loading-state hidden" aria-busy="true">
+              <div class="skeleton-chart" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+              <h2>Walking the portfolio forward</h2>
+              <p>Downloading prices, applying fills, and calculating risk.</p>
+            </div>
+
+            <div id="error-state" class="error-state hidden">
+              <span>Backtest interrupted</span>
+              <h2 id="error-title">The simulation could not finish.</h2>
+              <p id="error-message"></p>
+              <button id="dismiss-error" class="secondary-button" type="button">Adjust inputs</button>
+            </div>
+
+            <div id="results" class="results hidden">
+              <div class="results-heading">
+                <div>
+                  <p id="result-kicker">Backtest complete</p>
+                  <h2><span id="result-ticker">SPY</span> <small id="result-strategy">Moving Average Crossover</small></h2>
+                </div>
+                <div id="period-label" class="period-label"></div>
+              </div>
+
+              <div id="metrics" class="metric-grid"></div>
+
+              <div class="chart-card">
+                <div class="chart-heading">
+                  <div>
+                    <span id="chart-label">Portfolio equity</span>
+                    <strong id="chart-value">-</strong>
+                  </div>
+                  <div class="chart-tabs" role="tablist" aria-label="Chart type">
+                    <button class="active" data-chart="equity" type="button" role="tab" aria-selected="true">Equity</button>
+                    <button data-chart="drawdown" type="button" role="tab" aria-selected="false">Drawdown</button>
+                    <button data-chart="close" type="button" role="tab" aria-selected="false">Price</button>
+                  </div>
+                </div>
+                <div id="chart" class="chart" role="img" aria-label="Backtest chart"></div>
+              </div>
+
+              <div class="trades-card">
+                <div class="section-title">
+                  <h3>Trade ledger</h3>
+                  <span id="trade-count" class="trade-count"></span>
+                </div>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr><th>Entry</th><th>Exit</th><th>Shares</th><th>Return</th><th>Net P&amp;L</th></tr></thead>
+                    <tbody id="trade-table"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="wordmark" href="/">argmax</a>
+      <p>Open-source quantitative research infrastructure.<br />Past performance does not predict future results.</p>
+      <div><a href="/">Overview</a><a href="/#methodology">Methodology</a><a href="/app.html">Console</a></div>
+    </footer>
+
+    <div class="grain" aria-hidden="true"></div>
+    <script src="/vendor/gsap.min.js" defer></script>
+    <script src="/vendor/ScrollTrigger.min.js" defer></script>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
