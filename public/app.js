@@ -29,6 +29,7 @@ const form = document.querySelector("#backtest-form");
 const strategySelect = document.querySelector("#strategy");
 const parameterRoot = document.querySelector("#strategy-parameters");
 const runButton = form.querySelector(".run-button");
+const apiStatus = document.querySelector("#api-status");
 const states = {
   empty: document.querySelector("#empty-state"),
   loading: document.querySelector("#loading-state"),
@@ -37,6 +38,50 @@ const states = {
 };
 let latestResult = null;
 let activeChart = "equity";
+
+const API_OFFLINE_MESSAGE = 'Backtest API is not running. Stop the current server, run "argmax serve", and reload this page.';
+
+function setApiStatus(message = "") {
+  const hasError = Boolean(message);
+  apiStatus.textContent = hasError
+    ? message
+    : "Market data supplied by Yahoo Finance. Research use only.";
+  apiStatus.classList.toggle("api-error", hasError);
+}
+
+async function readJsonResponse(response) {
+  const contentType = response.headers.get("content-type") || "";
+  const body = await response.text();
+  if (!contentType.toLowerCase().includes("application/json")) {
+    throw new Error(body.trimStart().startsWith("<")
+      ? API_OFFLINE_MESSAGE
+      : "The backtest server returned an unsupported response. Restart Argmax and try again.");
+  }
+
+  let result;
+  try {
+    result = JSON.parse(body);
+  } catch {
+    throw new Error("The backtest server returned invalid JSON. Restart Argmax and try again.");
+  }
+  if (!response.ok) {
+    throw new Error(result.error || "The server could not complete this backtest.");
+  }
+  return result;
+}
+
+async function checkApiHealth() {
+  try {
+    const response = await fetch("/api/health", { headers: { Accept: "application/json" } });
+    const result = await readJsonResponse(response);
+    if (result.status !== "ok") throw new Error(API_OFFLINE_MESSAGE);
+    setApiStatus();
+    return true;
+  } catch (error) {
+    setApiStatus(error.message === API_OFFLINE_MESSAGE ? error.message : API_OFFLINE_MESSAGE);
+    return false;
+  }
+}
 
 function showState(name) {
   Object.entries(states).forEach(([key, element]) => element.classList.toggle("hidden", key !== name));
@@ -224,13 +269,14 @@ async function runBacktest(event) {
   document.querySelector("#run-label").textContent = "Running…";
   showState("loading");
   try {
+    setApiStatus();
     const response = await fetch("/api/backtest", {
       method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(requestPayload()),
     });
-    const result = await response.json();
-    if (!response.ok) throw new Error(result.error || "The server could not complete this backtest.");
+    const result = await readJsonResponse(response);
     renderResult(result);
   } catch (error) {
+    if (error.message === API_OFFLINE_MESSAGE) setApiStatus(error.message);
     document.querySelector("#error-message").textContent = error.message;
     showState("error");
   } finally {
@@ -328,3 +374,4 @@ function initializeMotion() {
 }
 
 initializeMotion();
+checkApiHealth();

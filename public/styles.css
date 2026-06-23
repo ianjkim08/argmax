@@ -156,6 +156,7 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
 .run-button:disabled { cursor: wait; opacity: .58; transform: none; }
 .run-button > span:last-child { font-size: 17px; }
 .form-note { margin: 12px 0 0; text-align: center; color: var(--dim); font-size: 10px; }
+.form-note.api-error { color: var(--risk); }
 
 .results-panel { min-height: 870px; padding: clamp(26px, 4vw, 54px); background: radial-gradient(circle at 85% 0%, rgba(184,232,92,.055), transparent 27%), #0b0e0c; }
 .empty-state, .loading-state, .error-state { min-height: 740px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }

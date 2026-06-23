@@ -76,6 +76,11 @@ def test_local_dashboard_serves_assets_and_api(monkeypatch, market_data) -> None
         assert "Strategy Research Console" in app_html
         assert "argmax" in app_html
 
+        with closing(urlopen(f"{base}/api/health", timeout=5)) as response:
+            health = json.loads(response.read())
+        assert response.status == 200
+        assert health == {"status": "ok"}
+
         request = Request(
             f"{base}/api/backtest",
             data=json.dumps(payload()).encode(),
