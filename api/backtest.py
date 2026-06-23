@@ -8,6 +8,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -27,7 +28,23 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def do_GET(self) -> None:
+        path = urlparse(self.path).path
+        if path == "/api/health":
+            self._send(HTTPStatus.OK, {"status": "ok"})
+            return
+        if path == "/":
+            self.send_response(HTTPStatus.TEMPORARY_REDIRECT)
+            self.send_header("Location", "/index.html")
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
+        self._send(HTTPStatus.NOT_FOUND, {"error": "Not found"})
+
     def do_POST(self) -> None:
+        if urlparse(self.path).path != "/api/backtest":
+            self._send(HTTPStatus.NOT_FOUND, {"error": "Not found"})
+            return
         try:
             length = int(self.headers.get("Content-Length", "0"))
             if length <= 0 or length > 32_768:
